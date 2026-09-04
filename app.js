@@ -1,6 +1,7 @@
 const yearRange = document.querySelector("#yearRange");
 const yearOutput = document.querySelector("#yearOutput");
 const timelineView = document.querySelector("#timelineView");
+const timelineShell = document.querySelector("#timelineShell");
 const mapView = document.querySelector("#mapView");
 const resultsText = document.querySelector("#resultsText");
 const detailDialog = document.querySelector("#detailDialog");
@@ -9,13 +10,17 @@ const aboutDialog = document.querySelector("#aboutDialog");
 const selectedThemes = new Set();
 let map;
 let markerLayer;
+let eraStyle = "modern";
 const TIMELINE_RADIUS = 600;
 
 const THEMES = [...new Set(HISTORY_ITEMS.map(item => item.theme))].sort();
 
 function formatYear(year) {
-  if (year < 0) return `${Math.abs(year).toLocaleString()} BCE`;
-  return `${year.toLocaleString()} CE`;
+  const before = eraStyle === "modern" ? "BCE" : "BC";
+  const after = eraStyle === "modern" ? "CE" : "AD";
+  if (year < 0) return `${Math.abs(year).toLocaleString()} ${before}`;
+  if (year === 0) return `1 ${before} / 1 ${after}`;
+  return eraStyle === "modern" ? `${year.toLocaleString()} ${after}` : `${after} ${year.toLocaleString()}`;
 }
 
 function formatSpan(item) {
@@ -151,6 +156,8 @@ function render() {
   const items = getVisibleItems();
   const year = Number(yearRange.value);
   yearOutput.value = formatYear(year);
+  document.querySelector("#rangeStart").textContent = formatYear(-3200);
+  document.querySelector("#rangeEnd").textContent = formatYear(1500);
   const themeText = selectedThemes.size ? ` matching ${[...selectedThemes].join(", ")}` : " across all themes";
   resultsText.textContent = `${items.length} historical ${items.length === 1 ? "item" : "items"} between ${formatYear(year - TIMELINE_RADIUS)} and ${formatYear(year + TIMELINE_RADIUS)}${themeText}.`;
   renderTimeline(items);
@@ -166,9 +173,21 @@ document.querySelectorAll(".view-button").forEach(button => {
       item.setAttribute("aria-pressed", String(active));
     });
     const showMap = button.dataset.view === "map";
-    timelineView.hidden = showMap;
+    timelineShell.hidden = showMap;
     mapView.hidden = !showMap;
     if (showMap) renderMap(getVisibleItems());
+  });
+});
+
+document.querySelectorAll(".era-button").forEach(button => {
+  button.addEventListener("click", () => {
+    eraStyle = button.dataset.era;
+    document.querySelectorAll(".era-button").forEach(item => {
+      const active = item === button;
+      item.classList.toggle("active", active);
+      item.setAttribute("aria-pressed", String(active));
+    });
+    render();
   });
 });
 

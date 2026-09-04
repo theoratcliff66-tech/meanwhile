@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore what different societies were doing at the same moment in human history.">
+  <title>Meanwhile — human history, side by side</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,650&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIINfQ3ynhYhFo9QuMZ2VqkS4h4p6HNE6mM=" crossorigin="">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#explorer">Skip to history explorer</a>
+  <header class="masthead">
+    <a class="wordmark" href="#">Meanwhile<span>.</span></a>
+    <p>Human history, side by side</p>
+    <button class="about-button" id="aboutButton" type="button">About this project</button>
+  </header>
+
+  <main>
+    <section class="intro">
+      <p class="eyebrow">A comparison engine for the past</p>
+      <h1>What was happening <em>elsewhere?</em></h1>
+      <p class="lede">History is usually told one place at a time. Meanwhile lets you stop at a moment and look across the world.</p>
+    </section>
+
+    <section class="explorer" id="explorer" aria-label="History explorer">
+      <div class="controls-panel">
+        <div class="date-control">
+          <div>
+            <span class="control-label">Choose a year</span>
+            <output id="yearOutput" for="yearRange">2500 BCE</output>
+          </div>
+          <input id="yearRange" type="range" min="-3200" max="1500" step="50" value="-2500" aria-label="Choose a year">
+          <div class="range-ends" aria-hidden="true"><span>3200 BCE</span><span>1500 CE</span></div>
+        </div>
+
+        <div class="view-switch" aria-label="Choose a view">
+          <button class="view-button active" type="button" data-view="timeline" aria-pressed="true">Timeline</button>
+          <button class="view-button" type="button" data-view="map" aria-pressed="false">Map</button>
+        </div>
+
+        <div class="themes" aria-labelledby="themeLabel">
+          <span class="control-label" id="themeLabel">Show themes</span>
+          <div id="themeFilters" class="filter-list"></div>
+        </div>
+      </div>
+
+      <div class="results-summary" aria-live="polite">
+        <p id="resultsText"></p>
+        <button id="resetButton" class="text-button" type="button">Reset filters</button>
+      </div>
+
+      <div id="timelineView" class="timeline-view"></div>
+      <div id="mapView" class="map-view" hidden>
+        <div id="map" aria-label="Map showing historical items near the chosen date"></div>
+        <p class="map-note">Locations are approximate and use present-day geography as a visual reference, not as historical borders.</p>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="detailDialog" class="detail-dialog">
+    <button class="close-button" type="button" aria-label="Close details">×</button>
+    <div id="detailContent"></div>
+  </dialog>
+
+  <dialog id="aboutDialog" class="about-dialog">
+    <button class="close-button" type="button" aria-label="Close about panel">×</button>
+    <p class="eyebrow">About Meanwhile</p>
+    <h2>A wider view of history</h2>
+    <p>Meanwhile is an experiment in seeing simultaneity: the technologies, beliefs, movements and ordinary lives unfolding across the world at roughly the same time.</p>
+    <p>The regions are broad viewing lanes, not claims that cultures inside them were uniform. Dates and locations are often approximate; each item links to a source so you can go further.</p>
+  </dialog>
+
+  <footer>
+    <p>Built as a first working prototype. Historical dates are approximate and open to revision as the evidence changes.</p>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
+

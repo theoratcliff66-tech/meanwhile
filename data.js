@@ -148,5 +148,89 @@ const HISTORY_ITEMS = [
     summary: "Roads, bridges and storehouses bound a vast mountain empire together without wheeled transport.",
     body: "The Qhapaq Ñan incorporated and expanded earlier routes. Runners carried information, while armies, officials and communities moved goods and labour across difficult terrain.",
     source: "UNESCO World Heritage Centre", sourceUrl: "https://whc.unesco.org/en/list/1459/"
+  },
+  {
+    id: "egyptian-writing", year: -3200, endYear: -3175, region: "africa", theme: "Writing", milestone: "Earliest surviving writing evidence",
+    title: "Hieroglyphic writing appears in Egypt", place: "Upper Egypt", lat: 25.7, lng: 32.6,
+    summary: "Labels and inscriptions preserve some of the earliest securely dated Egyptian writing.",
+    body: "Writing developed in Egypt around the end of the fourth millennium BCE. The earliest surviving examples are brief, but the system grew into the hieroglyphic, hieratic and later demotic traditions used for administration, commemoration and belief.",
+    source: "The Metropolitan Museum of Art", sourceUrl: "https://www.metmuseum.org/toah/hd/hier/hd_hier.htm"
+  },
+  {
+    id: "cuneiform-writing", year: -3200, endYear: -3175, region: "asia", theme: "Writing", milestone: "Earliest surviving writing evidence",
+    title: "Cuneiform begins in Mesopotamia", place: "Uruk, present-day Iraq", lat: 31.32, lng: 45.64,
+    summary: "Clay tablets record goods and quantities as signs begin to represent language.",
+    body: "Early Mesopotamian writing grew from systems of accounting. Over time, scribes used wedge-shaped marks pressed into clay to record several languages and a far wider range of human activity.",
+    source: "The Metropolitan Museum of Art", sourceUrl: "https://www.metmuseum.org/toah/hd/wrtg/hd_wrtg.htm"
+  },
+  {
+    id: "indus-writing", year: -2600, endYear: -1900, region: "asia", theme: "Writing",
+    title: "Indus signs appear on seals and objects", place: "Indus civilisation", lat: 27.32, lng: 68.13,
+    summary: "Short sequences of signs survive, but the Indus script remains undeciphered.",
+    body: "Thousands of brief inscriptions occur on seals, tablets, pottery and other objects. Because no bilingual text has been found and the inscriptions are short, their language and precise function remain unresolved.",
+    source: "The British Museum", sourceUrl: "https://www.britishmuseum.org/collection/galleries/india-indus-and-ganges"
+  },
+  {
+    id: "linear-a", year: -1800, endYear: -1450, region: "europe", theme: "Writing", milestone: "Earliest surviving writing evidence",
+    title: "Linear A is used on Bronze Age Crete", place: "Crete", lat: 35.24, lng: 24.81,
+    summary: "Minoan administrators use a script that scholars still cannot confidently read.",
+    body: "Linear A survives mainly on clay tablets and religious objects. It predates the related Linear B script, which records an early form of Greek, but Linear A represents a different and still undeciphered language.",
+    source: "Encyclopaedia Britannica", sourceUrl: "https://www.britannica.com/topic/Linear-A"
+  },
+  {
+    id: "greek-alphabet", year: -750, endYear: -700, region: "europe", theme: "Writing",
+    title: "Greek speakers adapt the alphabet", place: "Aegean and Mediterranean", lat: 37.9, lng: 23.7,
+    summary: "A consonantal script derived from Phoenician is adapted to mark vowels as well.",
+    body: "The Greek alphabet was not created from nothing: it transformed a Phoenician model. Its explicit vowel signs later influenced the Etruscan and Latin alphabets.",
+    source: "Encyclopaedia Britannica", sourceUrl: "https://www.britannica.com/topic/Greek-alphabet"
+  },
+  {
+    id: "zapotec-writing", year: -500, endYear: -300, region: "americas", theme: "Writing", milestone: "Earliest surviving writing evidence",
+    title: "Writing is carved in ancient Oaxaca", place: "Monte Albán, present-day Mexico", lat: 17.04, lng: -96.77,
+    summary: "Early inscriptions in Oaxaca preserve names, places and political acts.",
+    body: "The earliest Mesoamerican writing is difficult to date and attribute precisely. Zapotec inscriptions at and around Monte Albán are among the earliest substantial traditions that survive.",
+    source: "The Metropolitan Museum of Art", sourceUrl: "https://www.metmuseum.org/toah/hd/zapo/hd_zapo.htm"
+  },
+  {
+    id: "nok-iron", year: -500, endYear: 200, region: "africa", theme: "Technology",
+    title: "Ironworking communities flourish in West Africa", place: "Central Nigeria", lat: 9.6, lng: 8.1,
+    summary: "Nok sites preserve evidence of iron production alongside distinctive terracotta sculpture.",
+    body: "Ironworking appeared in parts of Africa through varied local histories, not a single wave of arrival. Nok evidence forms one important strand in that larger and still-debated story.",
+    source: "The Metropolitan Museum of Art", sourceUrl: "https://www.metmuseum.org/toah/hd/nok/hd_nok.htm"
+  },
+  {
+    id: "paper-china", year: 100, endYear: 150, region: "asia", theme: "Technology",
+    title: "Papermaking is refined in Han China", place: "Han China", lat: 34.3, lng: 108.9,
+    summary: "Plant fibres are processed into a practical writing material that will spread widely.",
+    body: "Paper existed before the court official Cai Lun reported improvements around 105 CE. Its manufacture later travelled through Central Asia and the Islamic world before becoming established in Europe.",
+    source: "Encyclopaedia Britannica", sourceUrl: "https://www.britannica.com/technology/papermaking"
+  },
+  {
+    id: "movable-type", year: 1040, endYear: 1060, region: "asia", theme: "Technology",
+    title: "Bi Sheng experiments with movable type", place: "Song China", lat: 34.8, lng: 114.3,
+    summary: "Individual ceramic characters can be arranged, printed and reused.",
+    body: "Movable type was an ingenious addition to a much older East Asian print culture. Woodblock printing often remained more practical for scripts with thousands of characters.",
+    source: "Encyclopaedia Britannica", sourceUrl: "https://www.britannica.com/technology/printing-publishing"
+  },
+  {
+    id: "nan-madol", year: 1200, endYear: 1500, region: "oceania", theme: "Technology",
+    title: "Builders reshape islets at Nan Madol", place: "Pohnpei, Micronesia", lat: 6.84, lng: 158.33,
+    summary: "Basalt walls and canals form a monumental political and ceremonial centre.",
+    body: "Nan Madol consists of more than ninety artificial islets constructed beside Pohnpei. Transporting and stacking huge basalt columns required sophisticated knowledge and collective organisation.",
+    source: "UNESCO World Heritage Centre", sourceUrl: "https://whc.unesco.org/en/list/1503/"
+  },
+  {
+    id: "printing-press", year: 1440, endYear: 1470, region: "europe", theme: "Technology",
+    title: "Metal movable type transforms European printing", place: "Mainz, present-day Germany", lat: 49.99, lng: 8.25,
+    summary: "Gutenberg combines reusable metal type, oil-based ink and a press into a powerful system.",
+    body: "Printing already had long histories in East Asia. The Mainz system made large-scale production of alphabetic texts much faster in Europe and helped reshape religion, scholarship and public life.",
+    source: "Encyclopaedia Britannica", sourceUrl: "https://www.britannica.com/technology/printing-press"
+  },
+  {
+    id: "rongorongo", year: 1700, endYear: 1800, region: "oceania", theme: "Writing", milestone: "Earliest surviving writing evidence — debated",
+    title: "Rongorongo signs are carved on Rapa Nui", place: "Rapa Nui", lat: -27.12, lng: -109.35,
+    summary: "Inscribed wooden tablets preserve an undeciphered sign system whose age and status remain disputed.",
+    body: "Rongorongo is sometimes described as Oceania’s only independently developed writing system, but no secure reading exists. The surviving objects were recorded in the nineteenth century, and scholars debate when the tradition began and whether it encoded language fully.",
+    source: "The British Museum", sourceUrl: "https://www.britishmuseum.org/collection/term/x104621"
   }
 ];

@@ -36,12 +36,21 @@ h1 em { color: var(--accent); font-weight: 500; }
 .lede { max-width: 420px; margin: 0 0 .4rem; padding-top: 1rem; border-top: 3px solid var(--ink); font-family: "Newsreader", serif; font-size: clamp(1.2rem, 2vw, 1.55rem); line-height: 1.45; }
 
 .explorer { border-top: 1px solid var(--line); }
-.controls-panel { display: grid; grid-template-columns: minmax(280px, 1.8fr) auto minmax(280px, 1fr); gap: 2rem; align-items: center; padding: 1.5rem clamp(1rem, 4vw, 4rem); background: var(--panel); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 500; }
+.controls-panel { display: flex; justify-content: space-between; gap: 2rem; align-items: center; padding: 1rem clamp(1rem, 4vw, 4rem); background: var(--panel); border-bottom: 1px solid var(--line); }
 .date-control > div:first-child { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
 .date-control .control-label { margin: 0; }
 #yearOutput { font-family: "Newsreader", serif; font-size: 1.8rem; font-weight: 650; }
 #yearRange { width: 100%; accent-color: var(--accent); }
 .range-ends { display: flex; justify-content: space-between; color: var(--muted); font-size: .7rem; }
+.timeline-navigator { position: sticky; top: 0; z-index: 500; display: grid; grid-template-columns: minmax(300px, 1fr) auto; gap: clamp(1.5rem, 5vw, 5rem); align-items: center; padding: 1rem clamp(1rem, 4vw, 4rem); border-block: 1px solid var(--ink); background: rgba(255,255,255,.96); box-shadow: 0 8px 20px rgba(0,0,0,.07); backdrop-filter: blur(8px); }
+.timeline-navigator .date-control { width: min(760px, 100%); }
+.timeline-navigator #yearOutput { color: var(--accent-dark); }
+.era-choice { min-width: 210px; }
+.era-choice .control-label { display: block; margin-bottom: .35rem; }
+.era-choice small { display: block; margin-top: .35rem; color: var(--muted); font-size: .7rem; }
+.era-switch { display: inline-flex; padding: .2rem; border: 1px solid var(--line); border-radius: 999px; background: var(--paper); }
+.era-button { border: 0; border-radius: 999px; padding: .45rem .7rem; background: transparent; cursor: pointer; font-size: .76rem; font-weight: 700; }
+.era-button.active { color: white; background: var(--ink); }
 .view-switch { display: inline-flex; padding: .25rem; border: 1px solid var(--line); border-radius: 999px; background: var(--paper); }
 .view-button { min-width: 84px; border: 0; border-radius: 999px; padding: .65rem 1rem; background: transparent; cursor: pointer; }
 .view-button.active { color: white; background: var(--green); }
@@ -104,12 +113,18 @@ footer { padding: 3rem clamp(1rem, 4vw, 4rem); color: var(--muted); font-size: .
 @media (max-width: 900px) {
   .intro { grid-template-columns: 1fr; }
   .lede { max-width: 640px; }
-  .controls-panel { position: static; grid-template-columns: 1fr; gap: 1.25rem; }
+  .controls-panel { align-items: flex-start; gap: 1.25rem; }
+  .timeline-navigator { grid-template-columns: 1fr; gap: .8rem; }
+  .era-choice { display: grid; grid-template-columns: auto auto 1fr; gap: .6rem; align-items: center; }
+  .era-choice .control-label, .era-choice small { margin: 0; }
   .view-switch { justify-self: start; }
   .masthead p { display: none; }
 }
 
 @media (max-width: 620px) {
+  .controls-panel { flex-direction: column; }
+  .timeline-navigator { position: sticky; padding-block: .75rem; }
+  .era-choice { grid-template-columns: 1fr; gap: .25rem; }
   .masthead { gap: .75rem; justify-content: space-between; }
   .wordmark { font-size: 1.65rem; }
   .about-button { font-size: .78rem; }

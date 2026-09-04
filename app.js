@@ -108,6 +108,7 @@ function initialiseMap() {
   map = L.map("map", { worldCopyJump: true, minZoom: 2 }).setView([18, 12], 2);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 8,
+    crossOrigin: true,
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
   }).addTo(map);
   markerLayer = L.layerGroup().addTo(map);
@@ -134,9 +135,11 @@ function renderMap(items) {
 
 function showDetail(item) {
   const region = REGIONS.find(candidate => candidate.id === item.region);
+  const image = item.image ? `<figure class="detail-image"><img src="${item.image}" alt="${item.imageAlt}" loading="lazy"><figcaption>Image: <a href="${item.imageCreditUrl}" target="_blank" rel="noopener">${item.imageCredit}</a></figcaption></figure>` : "";
   detailContent.innerHTML = `
     <p class="eyebrow">${region.name} · ${item.theme}</p>
     <h2>${item.title}</h2>
+    ${image}
     <p class="standfirst">${item.summary}</p>
     <div class="detail-meta"><div><span>When</span>${formatSpan(item)}</div><div><span>Where</span>${item.place}</div></div>
     <p class="detail-body">${item.body}</p>

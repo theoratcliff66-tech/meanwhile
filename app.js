@@ -11,6 +11,10 @@ const selectedThemes = new Set();
 let map;
 let markerLayer;
 const TIMELINE_RADIUS = 600;
+const MIN_YEAR = -3200;
+const MAX_YEAR = 1500;
+const YEAR_STEP = 25;
+const timeDial = document.querySelector("#timeDial");
 
 const THEMES = [...new Set(HISTORY_ITEMS.map(item => item.theme))].sort();
 
@@ -23,6 +27,12 @@ function formatYear(year) {
 function formatSpan(item) {
   if (!item.endYear || item.endYear === item.year) return `Around ${formatYear(item.year)}`;
   return `${formatYear(item.year)}–${formatYear(item.endYear)}`;
+}
+
+function setYear(value) {
+  const rounded = Math.round(value / YEAR_STEP) * YEAR_STEP;
+  yearRange.value = Math.max(MIN_YEAR, Math.min(MAX_YEAR, rounded));
+  render();
 }
 
 function distanceFromYear(item, year) {
@@ -155,15 +165,68 @@ function render() {
   const items = getVisibleItems();
   const year = Number(yearRange.value);
   yearOutput.value = formatYear(year);
-  document.querySelector("#rangeStart").textContent = "3200 BCE";
-  document.querySelector("#rangeEnd").textContent = "1500 CE";
+  const rotation = -145 + ((year - MIN_YEAR) / (MAX_YEAR - MIN_YEAR)) * 290;
+  timeDial.style.setProperty("--dial-rotation", `${rotation}deg`);
+  timeDial.setAttribute("aria-valuenow", String(year));
+  timeDial.setAttribute("aria-valuetext", formatYear(year));
   const themeText = selectedThemes.size ? ` matching ${[...selectedThemes].join(", ")}` : " across all themes";
   resultsText.textContent = `${items.length} historical ${items.length === 1 ? "item" : "items"} between ${formatYear(year - TIMELINE_RADIUS)} and ${formatYear(year + TIMELINE_RADIUS)}${themeText}.`;
   renderTimeline(items);
   if (!mapView.hidden) renderMap(items);
 }
 
-yearRange.addEventListener("input", render);
+let dialDragging = false;
+let previousDialAngle = 0;
+let dragYear = Number(yearRange.value);
+
+function pointerAngle(event) {
+  const bounds = timeDial.getBoundingClientRect();
+  return Math.atan2(event.clientY - (bounds.top + bounds.height / 2), event.clientX - (bounds.left + bounds.width / 2)) * 180 / Math.PI;
+}
+
+timeDial.addEventListener("pointerdown", event => {
+  dialDragging = true;
+  dragYear = Number(yearRange.value);
+  previousDialAngle = pointerAngle(event);
+  timeDial.setPointerCapture(event.pointerId);
+  timeDial.classList.add("turning");
+});
+
+timeDial.addEventListener("pointermove", event => {
+  if (!dialDragging) return;
+  const angle = pointerAngle(event);
+  let change = angle - previousDialAngle;
+  if (change > 180) change -= 360;
+  if (change < -180) change += 360;
+  dragYear = Math.max(MIN_YEAR, Math.min(MAX_YEAR, dragYear + change * 12));
+  previousDialAngle = angle;
+  setYear(dragYear);
+});
+
+function stopTurning(event) {
+  dialDragging = false;
+  timeDial.classList.remove("turning");
+  if (event.pointerId !== undefined && timeDial.hasPointerCapture(event.pointerId)) timeDial.releasePointerCapture(event.pointerId);
+}
+
+timeDial.addEventListener("pointerup", stopTurning);
+timeDial.addEventListener("pointercancel", stopTurning);
+timeDial.addEventListener("wheel", event => {
+  event.preventDefault();
+  setYear(Number(yearRange.value) + (event.deltaY > 0 ? YEAR_STEP : -YEAR_STEP));
+}, { passive: false });
+
+timeDial.addEventListener("keydown", event => {
+  const changes = { ArrowLeft: -YEAR_STEP, ArrowDown: -YEAR_STEP, ArrowRight: YEAR_STEP, ArrowUp: YEAR_STEP, PageDown: -100, PageUp: 100 };
+  if (event.key === "Home") setYear(MIN_YEAR);
+  else if (event.key === "End") setYear(MAX_YEAR);
+  else if (changes[event.key]) setYear(Number(yearRange.value) + changes[event.key]);
+  else return;
+  event.preventDefault();
+});
+
+document.querySelector("#yearBack").addEventListener("click", () => setYear(Number(yearRange.value) - YEAR_STEP));
+document.querySelector("#yearForward").addEventListener("click", () => setYear(Number(yearRange.value) + YEAR_STEP));
 document.querySelectorAll(".view-button").forEach(button => {
   button.addEventListener("click", () => {
     document.querySelectorAll(".view-button").forEach(item => {

@@ -12,7 +12,7 @@ let map;
 let markerLayer;
 const TIMELINE_RADIUS = 600;
 const MIN_YEAR = -3200;
-const MAX_YEAR = 1500;
+const MAX_YEAR = 1800;
 const YEAR_STEP = 25;
 const timeDial = document.querySelector("#timeDial");
 
@@ -87,9 +87,11 @@ function timelineItemFor(item, region, year, lane) {
   button.setAttribute("aria-label", `${item.title}, ${formatSpan(item)}. Open details.`);
   const thumbnail = item.image ? `<img class="timeline-thumb" src="${item.image}" alt="" loading="lazy">` : "";
   button.classList.toggle("has-image", Boolean(item.image));
+  button.classList.toggle("milestone-event", Boolean(item.milestone));
+  const milestone = item.milestone ? `<span class="milestone-glyph" aria-hidden="true">◆</span>` : "";
   button.innerHTML = isPoint
-    ? `${thumbnail || '<span class="event-dot"></span>'}<span class="point-label">${item.title}<small>${formatSpan(item)}</small></span>`
-    : `${thumbnail}<span class="bar-label">${item.title}<small>${formatSpan(item)}</small></span>`;
+    ? `${thumbnail || '<span class="event-dot"></span>'}<span class="point-label">${milestone}${item.title}<small>${formatSpan(item)}</small></span>`
+    : `${thumbnail}<span class="bar-label">${milestone}${item.title}<small>${formatSpan(item)}</small></span>`;
   button.addEventListener("click", () => showDetail(item));
   return button;
 }
@@ -99,7 +101,7 @@ function renderTimeline(items) {
   const year = Number(yearRange.value);
   const axis = document.createElement("div");
   axis.className = "time-axis-row";
-  axis.innerHTML = `<div class="axis-heading">Earlier</div><div class="time-axis"><span>${formatYear(year - TIMELINE_RADIUS)}</span><strong>${formatYear(year)}</strong><span>${formatYear(year + TIMELINE_RADIUS)}</span></div>`;
+  axis.innerHTML = `<div class="axis-heading"><span>Earlier</span><small><b>◆</b> earliest writing evidence</small></div><div class="time-axis"><span>${formatYear(year - TIMELINE_RADIUS)}</span><strong>${formatYear(year)}</strong><span>${formatYear(year + TIMELINE_RADIUS)}</span></div>`;
   timelineView.appendChild(axis);
   REGIONS.forEach(region => {
     const row = document.createElement("section");
@@ -108,7 +110,6 @@ function renderTimeline(items) {
     row.innerHTML = `<header class="region-heading"><span class="region-swatch" aria-hidden="true"></span><h2>${region.name}</h2><p>${region.note}</p></header>`;
     const track = document.createElement("div");
     track.className = "region-track";
-    track.innerHTML = `<span class="now-line" aria-hidden="true"></span>`;
     const regionItems = items.filter(item => item.region === region.id).slice(0, 3);
     if (regionItems.length) regionItems.forEach((item, index) => track.appendChild(timelineItemFor(item, region, year, index)));
     else track.insertAdjacentHTML("beforeend", `<p class="empty-state">No matching item in this part of the timeline — yet.</p>`);
@@ -181,7 +182,8 @@ let dragYear = Number(yearRange.value);
 
 function pointerAngle(event) {
   const bounds = timeDial.getBoundingClientRect();
-  return Math.atan2(event.clientY - (bounds.top + bounds.height / 2), event.clientX - (bounds.left + bounds.width / 2)) * 180 / Math.PI;
+  const hiddenDialCentreY = bounds.top + bounds.width / 2;
+  return Math.atan2(event.clientY - hiddenDialCentreY, event.clientX - (bounds.left + bounds.width / 2)) * 180 / Math.PI;
 }
 
 timeDial.addEventListener("pointerdown", event => {

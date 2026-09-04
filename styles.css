@@ -41,8 +41,7 @@ h1 em { color: var(--accent); font-weight: 500; }
 .dial-control { position: relative; height: 100%; overflow: hidden; }
 .time-dial { --dial-rotation: -100deg; position: absolute; top: 0; left: 50%; width: clamp(480px, 60vw, 820px); height: 100%; overflow: hidden; padding: 0; border: 0; color: var(--ink); background: transparent; transform: translateX(-50%); cursor: grab; touch-action: none; }
 .time-dial.turning { cursor: grabbing; }
-.dial-face { position: absolute; top: 0; left: 0; width: 100%; aspect-ratio: 1; border: 1px solid #9d9d98; border-radius: 50%; background: repeating-conic-gradient(#777 0 1px, transparent 1px 5deg), radial-gradient(circle, #fdfdfb 0 68%, #e7e7e2 68% 74%, #fafaf8 74% 100%); box-shadow: inset 0 0 0 12px rgba(255,255,255,.82), inset 0 0 0 13px #aaa, 0 12px 30px rgba(0,0,0,.18); transform: rotate(var(--dial-rotation)); transition: transform .16s cubic-bezier(.2,.7,.2,1); }
-.dial-mark { position: absolute; top: 5px; left: calc(50% - 2px); width: 4px; height: 8%; border-radius: 4px; background: var(--accent); }
+.dial-face { position: absolute; top: 0; left: 0; width: 100%; aspect-ratio: 1; border: 1px solid #9d9d98; border-radius: 50%; background: repeating-conic-gradient(from 0deg, rgba(30,30,28,.82) 0 1px, transparent 1px 5deg), repeating-conic-gradient(from 0deg, #111 0 2px, transparent 2px 25deg), radial-gradient(circle, #fdfdfb 0 68%, #e7e7e2 68% 74%, #fafaf8 74% 100%); box-shadow: inset 0 0 0 12px rgba(255,255,255,.82), inset 0 0 0 13px #aaa, 0 12px 30px rgba(0,0,0,.18); transform: rotate(var(--dial-rotation)); transition: transform .16s cubic-bezier(.2,.7,.2,1); }
 .time-dial.turning .dial-face { transition: none; }
 .dial-index { position: absolute; z-index: 4; bottom: 0; left: 50%; width: 0; height: 0; border-top: 16px solid var(--accent); border-right: 8px solid transparent; border-left: 8px solid transparent; transform: translateX(-50%); pointer-events: none; }
 #yearOutput { position: absolute; z-index: 4; right: 0; bottom: 15px; left: 0; font-family: "Newsreader", serif; font-size: clamp(1.45rem, 2.4vw, 2rem); font-weight: 650; line-height: 1; text-align: center; pointer-events: none; }
@@ -79,6 +78,11 @@ h1 em { color: var(--accent); font-weight: 500; }
 .region-heading p { max-width: 220px; margin: .45rem 0 0; color: var(--muted); font-size: .8rem; }
 .region-swatch { display: block; width: 34px; height: 5px; margin-bottom: .65rem; border-radius: 99px; background: var(--region-colour); }
 .region-track { position: relative; min-width: 0; min-height: 116px; overflow: hidden; }
+.achievement-stack { position: absolute; z-index: 6; bottom: 6px; left: 210px; display: flex; align-items: flex-end; gap: 3px; max-width: calc(50% - 220px); height: 104px; padding: 0 5px; overflow: hidden; border-left: 1px solid rgba(17,17,17,.16); background: linear-gradient(90deg, rgba(240,240,237,.98) 82%, transparent); }
+.achievement-block { display: flex; align-items: center; justify-content: center; width: 27px; height: var(--block-height); flex: 0 0 27px; border: 0; border-radius: 2px 2px 0 0; padding: 5px 3px; color: white; background: var(--region-colour); box-shadow: 0 2px 5px rgba(17,17,17,.16); cursor: pointer; }
+.achievement-block:nth-child(even) { filter: brightness(.9); }
+.achievement-block span { writing-mode: vertical-rl; transform: rotate(180deg); font-size: .58rem; font-weight: 700; letter-spacing: .035em; line-height: 1; text-transform: uppercase; white-space: nowrap; }
+.achievement-block:hover, .achievement-block:focus-visible { filter: brightness(.78); transform: translateY(-3px); }
 .timeline-item { position: absolute; z-index: 2; border: 0; font: inherit; text-align: left; cursor: pointer; }
 .milestone-event { outline: 2px solid var(--ink); outline-offset: 2px; }
 .milestone-glyph { margin-right: .25rem; font-size: .72em; }
@@ -144,6 +148,7 @@ footer { padding: 3rem clamp(1rem, 4vw, 4rem); color: var(--muted); font-size: .
   .region-heading p { display: inline; margin-left: .5rem; }
   .region-swatch { display: inline-block; width: 22px; margin: 0 .45rem .2rem 0; }
   .region-track { min-height: 112px; }
+  .achievement-stack { left: 0; max-width: 48%; }
   .detail-meta { grid-template-columns: 1fr; }
   #map { min-height: 500px; }
 }

@@ -8,22 +8,21 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,650&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIINfQ3ynhYhFo9QuMZ2VqkS4h4p6HNE6mM=" crossorigin="">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <a class="skip-link" href="#explorer">Skip to history explorer</a>
   <header class="masthead">
-    <a class="wordmark" href="#">Meanwhile<span>.</span></a>
+    <a class="wordmark" href="#">Meanwhile<span>.</span></a><span class="version">v1.2</span>
     <p>Human history, side by side</p>
     <button class="about-button" id="aboutButton" type="button">About this project</button>
   </header>
 
   <main>
     <section class="intro">
-      <p class="eyebrow">A comparison engine for the past</p>
-      <h1>What was happening <em>elsewhere?</em></h1>
-      <p class="lede">History is usually told one place at a time. Meanwhile lets you stop at a moment and look across the world.</p>
+      <div><p class="eyebrow">A comparison engine for the past</p><h1>What was happening <em>elsewhere?</em></h1></div>
+      <p class="lede">History is usually told one place at a time. Stop at a moment and look across the world.</p>
     </section>
 
     <section class="explorer" id="explorer" aria-label="History explorer">
@@ -83,4 +82,3 @@
   <script src="app.js"></script>
 </body>
 </html>
-

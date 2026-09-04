@@ -8,7 +8,7 @@ const REGIONS = [
 
 const HISTORY_ITEMS = [
   {
-    id: "pyramids-giza", year: -2550, endYear: -2490, region: "africa", theme: "Building",
+    id: "pyramids-giza", year: -2550, endYear: -2490, region: "africa", theme: "Building", achievement: "Monumental building",
     title: "The pyramids rise at Giza", place: "Giza, Egypt", lat: 29.9792, lng: 31.1342,
     summary: "Workforces built monumental tombs for Khufu, Khafre and Menkaure on the Giza plateau.",
     body: "The pyramid complex was not simply three isolated monuments. Temples, causeways, cemeteries and a settlement for workers formed part of an organised landscape sustained by the Egyptian state.",
@@ -30,7 +30,7 @@ const HISTORY_ITEMS = [
     source: "English Heritage", sourceUrl: "https://www.english-heritage.org.uk/visit/places/stonehenge/history-and-stories/history/"
   },
   {
-    id: "indus-cities", year: -2500, endYear: -1900, region: "asia", theme: "Cities",
+    id: "indus-cities", year: -2500, endYear: -1900, region: "asia", theme: "Cities", achievement: "Urban drainage",
     title: "Planned cities flourish in the Indus valley", place: "Mohenjo-daro, present-day Pakistan", lat: 27.3242, lng: 68.1357,
     summary: "Mohenjo-daro and Harappa had gridded streets, wells and sophisticated drainage.",
     body: "The Indus civilisation supported large urban communities linked by shared forms of measurement, craft production and trade. Its script remains undeciphered, limiting what can be said about its political life.",
@@ -41,7 +41,7 @@ const HISTORY_ITEMS = [
     source: "UNESCO World Heritage Centre", sourceUrl: "https://whc.unesco.org/en/list/138/"
   },
   {
-    id: "caral", year: -2600, endYear: -2000, region: "americas", theme: "Cities",
+    id: "caral", year: -2600, endYear: -2000, region: "americas", theme: "Cities", achievement: "Monumental city",
     title: "A ceremonial city grows at Caral", place: "Supe Valley, present-day Peru", lat: -10.8936, lng: -77.5203,
     summary: "Monumental platform mounds and sunken courts formed an early urban centre in the Americas.",
     body: "Caral was one of several settlements in the Norte Chico region. Its monumental architecture shows that complex social organisation was developing in the Andes while the Egyptian pyramids were being built.",
@@ -52,7 +52,7 @@ const HISTORY_ITEMS = [
     source: "UNESCO World Heritage Centre", sourceUrl: "https://whc.unesco.org/en/list/1269/"
   },
   {
-    id: "lapita", year: -1350, endYear: -750, region: "oceania", theme: "Migration",
+    id: "lapita", year: -1350, endYear: -750, region: "oceania", theme: "Migration", achievement: "Ocean voyaging",
     title: "Lapita voyagers move into the Pacific", place: "Bismarck Archipelago and western Pacific", lat: -4.3, lng: 152.0,
     summary: "Seafaring communities carried farming, languages and distinctive pottery eastwards.",
     body: "Lapita sites mark a major expansion of Austronesian-speaking peoples into Remote Oceania. Their navigational achievement connected islands across immense stretches of sea.",
@@ -108,7 +108,7 @@ const HISTORY_ITEMS = [
     source: "UNESCO World Heritage Centre", sourceUrl: "https://whc.unesco.org/en/list/414/"
   },
   {
-    id: "aboriginal-aquaculture", year: 500, endYear: 1000, region: "oceania", theme: "Food",
+    id: "aboriginal-aquaculture", year: 500, endYear: 1000, region: "oceania", theme: "Food", achievement: "Aquaculture",
     title: "Gunditjmara communities manage eel aquaculture", place: "Budj Bim, Australia", lat: -38.06, lng: 141.88,
     summary: "Channels, weirs and ponds were used to manage water flows and harvest kooyang, or short-finned eel.",
     body: "The Budj Bim cultural landscape preserves evidence of a long-established Gunditjmara system for managing and storing a reliable food resource.",
@@ -129,7 +129,7 @@ const HISTORY_ITEMS = [
     source: "UNESCO World Heritage Centre", sourceUrl: "https://whc.unesco.org/en/list/364/"
   },
   {
-    id: "polynesian-navigation", year: 1200, endYear: 1300, region: "oceania", theme: "Migration",
+    id: "polynesian-navigation", year: 1200, endYear: 1300, region: "oceania", theme: "Migration", achievement: "Ocean navigation",
     title: "Polynesian voyagers settle Aotearoa", place: "Aotearoa New Zealand", lat: -38.5, lng: 176.5,
     summary: "Ocean-going navigators reached and settled the last major habitable landmass on Earth.",
     body: "Māori ancestors used deep knowledge of stars, swells, winds, birds and other environmental signs. Dating continues to be refined, but settlement was established by around 1300 CE.",
@@ -150,14 +150,14 @@ const HISTORY_ITEMS = [
     source: "UNESCO World Heritage Centre", sourceUrl: "https://whc.unesco.org/en/list/1459/"
   },
   {
-    id: "egyptian-writing", year: -3200, endYear: -3175, region: "africa", theme: "Writing", milestone: "Earliest surviving writing evidence",
+    id: "egyptian-writing", year: -3200, endYear: -3175, region: "africa", theme: "Writing", milestone: "Earliest surviving writing evidence", achievement: "Writing established",
     title: "Hieroglyphic writing appears in Egypt", place: "Upper Egypt", lat: 25.7, lng: 32.6,
     summary: "Labels and inscriptions preserve some of the earliest securely dated Egyptian writing.",
     body: "Writing developed in Egypt around the end of the fourth millennium BCE. The earliest surviving examples are brief, but the system grew into the hieroglyphic, hieratic and later demotic traditions used for administration, commemoration and belief.",
     source: "The Metropolitan Museum of Art", sourceUrl: "https://www.metmuseum.org/toah/hd/hier/hd_hier.htm"
   },
   {
-    id: "cuneiform-writing", year: -3200, endYear: -3175, region: "asia", theme: "Writing", milestone: "Earliest surviving writing evidence",
+    id: "cuneiform-writing", year: -3200, endYear: -3175, region: "asia", theme: "Writing", milestone: "Earliest surviving writing evidence", achievement: "Writing established",
     title: "Cuneiform begins in Mesopotamia", place: "Uruk, present-day Iraq", lat: 31.32, lng: 45.64,
     summary: "Clay tablets record goods and quantities as signs begin to represent language.",
     body: "Early Mesopotamian writing grew from systems of accounting. Over time, scribes used wedge-shaped marks pressed into clay to record several languages and a far wider range of human activity.",
@@ -171,7 +171,7 @@ const HISTORY_ITEMS = [
     source: "The British Museum", sourceUrl: "https://www.britishmuseum.org/collection/galleries/india-indus-and-ganges"
   },
   {
-    id: "linear-a", year: -1800, endYear: -1450, region: "europe", theme: "Writing", milestone: "Earliest surviving writing evidence",
+    id: "linear-a", year: -1800, endYear: -1450, region: "europe", theme: "Writing", milestone: "Earliest surviving writing evidence", achievement: "Writing established",
     title: "Linear A is used on Bronze Age Crete", place: "Crete", lat: 35.24, lng: 24.81,
     summary: "Minoan administrators use a script that scholars still cannot confidently read.",
     body: "Linear A survives mainly on clay tablets and religious objects. It predates the related Linear B script, which records an early form of Greek, but Linear A represents a different and still undeciphered language.",
@@ -185,49 +185,49 @@ const HISTORY_ITEMS = [
     source: "Encyclopaedia Britannica", sourceUrl: "https://www.britannica.com/topic/Greek-alphabet"
   },
   {
-    id: "zapotec-writing", year: -500, endYear: -300, region: "americas", theme: "Writing", milestone: "Earliest surviving writing evidence",
+    id: "zapotec-writing", year: -500, endYear: -300, region: "americas", theme: "Writing", milestone: "Earliest surviving writing evidence", achievement: "Writing established",
     title: "Writing is carved in ancient Oaxaca", place: "Monte Albán, present-day Mexico", lat: 17.04, lng: -96.77,
     summary: "Early inscriptions in Oaxaca preserve names, places and political acts.",
     body: "The earliest Mesoamerican writing is difficult to date and attribute precisely. Zapotec inscriptions at and around Monte Albán are among the earliest substantial traditions that survive.",
     source: "The Metropolitan Museum of Art", sourceUrl: "https://www.metmuseum.org/toah/hd/zapo/hd_zapo.htm"
   },
   {
-    id: "nok-iron", year: -500, endYear: 200, region: "africa", theme: "Technology",
+    id: "nok-iron", year: -500, endYear: 200, region: "africa", theme: "Technology", achievement: "Ironworking",
     title: "Ironworking communities flourish in West Africa", place: "Central Nigeria", lat: 9.6, lng: 8.1,
     summary: "Nok sites preserve evidence of iron production alongside distinctive terracotta sculpture.",
     body: "Ironworking appeared in parts of Africa through varied local histories, not a single wave of arrival. Nok evidence forms one important strand in that larger and still-debated story.",
     source: "The Metropolitan Museum of Art", sourceUrl: "https://www.metmuseum.org/toah/hd/nok/hd_nok.htm"
   },
   {
-    id: "paper-china", year: 100, endYear: 150, region: "asia", theme: "Technology",
+    id: "paper-china", year: 100, endYear: 150, region: "asia", theme: "Technology", achievement: "Papermaking",
     title: "Papermaking is refined in Han China", place: "Han China", lat: 34.3, lng: 108.9,
     summary: "Plant fibres are processed into a practical writing material that will spread widely.",
     body: "Paper existed before the court official Cai Lun reported improvements around 105 CE. Its manufacture later travelled through Central Asia and the Islamic world before becoming established in Europe.",
     source: "Encyclopaedia Britannica", sourceUrl: "https://www.britannica.com/technology/papermaking"
   },
   {
-    id: "movable-type", year: 1040, endYear: 1060, region: "asia", theme: "Technology",
+    id: "movable-type", year: 1040, endYear: 1060, region: "asia", theme: "Technology", achievement: "Movable type",
     title: "Bi Sheng experiments with movable type", place: "Song China", lat: 34.8, lng: 114.3,
     summary: "Individual ceramic characters can be arranged, printed and reused.",
     body: "Movable type was an ingenious addition to a much older East Asian print culture. Woodblock printing often remained more practical for scripts with thousands of characters.",
     source: "Encyclopaedia Britannica", sourceUrl: "https://www.britannica.com/technology/printing-publishing"
   },
   {
-    id: "nan-madol", year: 1200, endYear: 1500, region: "oceania", theme: "Technology",
+    id: "nan-madol", year: 1200, endYear: 1500, region: "oceania", theme: "Technology", achievement: "Artificial islets",
     title: "Builders reshape islets at Nan Madol", place: "Pohnpei, Micronesia", lat: 6.84, lng: 158.33,
     summary: "Basalt walls and canals form a monumental political and ceremonial centre.",
     body: "Nan Madol consists of more than ninety artificial islets constructed beside Pohnpei. Transporting and stacking huge basalt columns required sophisticated knowledge and collective organisation.",
     source: "UNESCO World Heritage Centre", sourceUrl: "https://whc.unesco.org/en/list/1503/"
   },
   {
-    id: "printing-press", year: 1440, endYear: 1470, region: "europe", theme: "Technology",
+    id: "printing-press", year: 1440, endYear: 1470, region: "europe", theme: "Technology", achievement: "Printing press",
     title: "Metal movable type transforms European printing", place: "Mainz, present-day Germany", lat: 49.99, lng: 8.25,
     summary: "Gutenberg combines reusable metal type, oil-based ink and a press into a powerful system.",
     body: "Printing already had long histories in East Asia. The Mainz system made large-scale production of alphabetic texts much faster in Europe and helped reshape religion, scholarship and public life.",
     source: "Encyclopaedia Britannica", sourceUrl: "https://www.britannica.com/technology/printing-press"
   },
   {
-    id: "rongorongo", year: 1700, endYear: 1800, region: "oceania", theme: "Writing", milestone: "Earliest surviving writing evidence — debated",
+    id: "rongorongo", year: 1700, endYear: 1800, region: "oceania", theme: "Writing", milestone: "Earliest surviving writing evidence — debated", achievement: "Writing?",
     title: "Rongorongo signs are carved on Rapa Nui", place: "Rapa Nui", lat: -27.12, lng: -109.35,
     summary: "Inscribed wooden tablets preserve an undeciphered sign system whose age and status remain disputed.",
     body: "Rongorongo is sometimes described as Oceania’s only independently developed writing system, but no secure reading exists. The surviving objects were recorded in the nineteenth century, and scholars debate when the tradition began and whether it encoded language fully.",

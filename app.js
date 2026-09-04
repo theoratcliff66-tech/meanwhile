@@ -14,6 +14,7 @@ const TIMELINE_RADIUS = 600;
 const MIN_YEAR = -3200;
 const MAX_YEAR = 1800;
 const YEAR_STEP = 25;
+const ACHIEVEMENT_PIN_DELAY = 325;
 const timeDial = document.querySelector("#timeDial");
 
 const THEMES = [...new Set(HISTORY_ITEMS.map(item => item.theme))].sort();
@@ -101,7 +102,7 @@ function renderTimeline(items) {
   const year = Number(yearRange.value);
   const axis = document.createElement("div");
   axis.className = "time-axis-row";
-  axis.innerHTML = `<div class="axis-heading"><span>Earlier</span><small><b>◆</b> earliest writing evidence</small></div><div class="time-axis"><span>${formatYear(year - TIMELINE_RADIUS)}</span><strong>${formatYear(year)}</strong><span>${formatYear(year + TIMELINE_RADIUS)}</span></div>`;
+  axis.innerHTML = `<div class="axis-heading"><span>Earlier</span><small><b>◆</b> earliest writing · <b>▮</b> established milestones</small></div><div class="time-axis"><span>${formatYear(year - TIMELINE_RADIUS)}</span><strong>${formatYear(year)}</strong><span>${formatYear(year + TIMELINE_RADIUS)}</span></div>`;
   timelineView.appendChild(axis);
   REGIONS.forEach(region => {
     const row = document.createElement("section");
@@ -110,10 +111,32 @@ function renderTimeline(items) {
     row.innerHTML = `<header class="region-heading"><span class="region-swatch" aria-hidden="true"></span><h2>${region.name}</h2><p>${region.note}</p></header>`;
     const track = document.createElement("div");
     track.className = "region-track";
-    const regionItems = items.filter(item => item.region === region.id).slice(0, 3);
+    const isPinned = item => item.achievement && year >= item.endYear + ACHIEVEMENT_PIN_DELAY;
+    const regionItems = items.filter(item => item.region === region.id && !isPinned(item)).slice(0, 3);
     if (regionItems.length) regionItems.forEach((item, index) => track.appendChild(timelineItemFor(item, region, year, index)));
     else track.insertAdjacentHTML("beforeend", `<p class="empty-state">No matching item in this part of the timeline — yet.</p>`);
     row.appendChild(track);
+    const achievements = HISTORY_ITEMS
+      .filter(item => item.region === region.id && isPinned(item))
+      .filter(item => selectedThemes.size === 0 || selectedThemes.has(item.theme))
+      .sort((a, b) => a.endYear - b.endYear);
+    if (achievements.length) {
+      const stack = document.createElement("div");
+      stack.className = "achievement-stack";
+      stack.setAttribute("aria-label", `${region.name} established milestones`);
+      achievements.forEach((item, index) => {
+        const block = document.createElement("button");
+        block.type = "button";
+        block.className = "achievement-block";
+        block.style.setProperty("--block-height", `${Math.min(104, 52 + item.achievement.length * 2)}px`);
+        block.style.setProperty("--stack-index", index);
+        block.innerHTML = `<span>${item.achievement}</span>`;
+        block.title = `${item.achievement}: ${item.title} (${formatSpan(item)})`;
+        block.addEventListener("click", () => showDetail(item));
+        stack.appendChild(block);
+      });
+      row.appendChild(stack);
+    }
     timelineView.appendChild(row);
   });
 }

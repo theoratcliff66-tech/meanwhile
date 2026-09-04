@@ -12,6 +12,10 @@ const HISTORY_ITEMS = [
     title: "The pyramids rise at Giza", place: "Giza, Egypt", lat: 29.9792, lng: 31.1342,
     summary: "Workforces built monumental tombs for Khufu, Khafre and Menkaure on the Giza plateau.",
     body: "The pyramid complex was not simply three isolated monuments. Temples, causeways, cemeteries and a settlement for workers formed part of an organised landscape sustained by the Egyptian state.",
+    image: "https://travelertopia.com/wp-content/uploads/2025/06/giza-pramitleri-5.jpg",
+    imageAlt: "The three principal pyramids on the Giza plateau seen across the desert",
+    imageCredit: "Travelertopia",
+    imageCreditUrl: "https://travelertopia.com/museums/egyptian-pyramids-giza/",
     source: "UNESCO World Heritage Centre", sourceUrl: "https://whc.unesco.org/en/list/86/"
   },
   {
@@ -19,6 +23,10 @@ const HISTORY_ITEMS = [
     title: "Stonehenge takes its monumental form", place: "Wiltshire, Britain", lat: 51.1789, lng: -1.8262,
     summary: "Communities in prehistoric Britain raised the great sarsen circle and trilithons.",
     body: "The people who built Stonehenge were not ‘British’ in the modern sense. The monument was created in stages over many centuries and sat within a much larger ritual landscape.",
+    image: "https://images.rawpixel.com/image_social_landscape/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvd2s3MTQxNzU5Ni1pbWFnZS1rcHFqMnR3cy5qcGc.jpg",
+    imageAlt: "Stonehenge beneath a broad, cloudy sky",
+    imageCredit: "Public-domain image via Rawpixel",
+    imageCreditUrl: "https://www.rawpixel.com/image/3370180/free-photo-image-archaeology-cc0-countryside",
     source: "English Heritage", sourceUrl: "https://www.english-heritage.org.uk/visit/places/stonehenge/history-and-stories/history/"
   },
   {
@@ -110,6 +118,10 @@ const HISTORY_ITEMS = [
     title: "Great Zimbabwe anchors a far-reaching trade network", place: "Present-day Zimbabwe", lat: -20.2675, lng: 30.9338,
     summary: "A major Shona centre grew rich through cattle, gold and links to Indian Ocean trade.",
     body: "Its dry-stone walls enclosed elite and ceremonial spaces. Colonial writers once denied African authorship; archaeology has firmly established that it was built by ancestors of Shona-speaking peoples.",
+    image: "https://fsn1.your-objectstorage.com/worldheritagesite/media/images/w364.2e16d0ba.fill-600x400.jpg",
+    imageAlt: "The curved dry-stone wall of the Great Enclosure at Great Zimbabwe",
+    imageCredit: "World Heritage Site",
+    imageCreditUrl: "https://www.worldheritagesite.org/countries/zimbabwe/",
     source: "UNESCO World Heritage Centre", sourceUrl: "https://whc.unesco.org/en/list/364/"
   },
   {
@@ -134,4 +146,3 @@ const HISTORY_ITEMS = [
     source: "UNESCO World Heritage Centre", sourceUrl: "https://whc.unesco.org/en/list/1459/"
   }
 ];
-

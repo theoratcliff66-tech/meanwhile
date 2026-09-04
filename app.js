@@ -9,6 +9,7 @@ const aboutDialog = document.querySelector("#aboutDialog");
 const selectedThemes = new Set();
 let map;
 let markerLayer;
+const TIMELINE_RADIUS = 600;
 
 const THEMES = [...new Set(HISTORY_ITEMS.map(item => item.theme))].sort();
 
@@ -31,7 +32,7 @@ function getVisibleItems() {
   const year = Number(yearRange.value);
   return HISTORY_ITEMS
     .filter(item => selectedThemes.size === 0 || selectedThemes.has(item.theme))
-    .filter(item => distanceFromYear(item, year) <= 450)
+    .filter(item => item.endYear >= year - TIMELINE_RADIUS && item.year <= year + TIMELINE_RADIUS)
     .sort((a, b) => distanceFromYear(a, year) - distanceFromYear(b, year));
 }
 
@@ -53,28 +54,51 @@ function createThemeFilters() {
   });
 }
 
-function cardFor(item, region) {
+function timelineItemFor(item, region, year, lane) {
+  const windowStart = year - TIMELINE_RADIUS;
+  const windowEnd = year + TIMELINE_RADIUS;
+  const windowSize = TIMELINE_RADIUS * 2;
+  const duration = item.endYear - item.year;
+  const isPoint = duration <= 25;
+  const clippedStart = Math.max(item.year, windowStart);
+  const clippedEnd = Math.min(item.endYear, windowEnd);
+  const anchorYear = isPoint ? (item.year + item.endYear) / 2 : clippedStart;
+  const left = ((anchorYear - windowStart) / windowSize) * 100;
+  const width = Math.max(2.5, ((clippedEnd - clippedStart) / windowSize) * 100);
   const button = document.createElement("button");
   button.type = "button";
-  button.className = "event-card";
+  button.className = `timeline-item ${isPoint ? "point-event" : "duration-event"}`;
   button.style.setProperty("--region-colour", region.colour);
-  button.innerHTML = `<span class="date">${formatSpan(item)}</span><h3>${item.title}</h3><p>${item.summary}</p><span class="tag">${item.theme}</span>`;
+  button.style.left = `${left}%`;
+  button.style.top = `${26 + lane * 50}px`;
+  if (!isPoint) button.style.width = `${width}%`;
+  button.setAttribute("aria-label", `${item.title}, ${formatSpan(item)}. Open details.`);
+  button.innerHTML = isPoint
+    ? `<span class="event-dot"></span><span class="point-label">${item.title}<small>${formatSpan(item)}</small></span>`
+    : `<span class="bar-label">${item.title}<small>${formatSpan(item)}</small></span>`;
   button.addEventListener("click", () => showDetail(item));
   return button;
 }
 
 function renderTimeline(items) {
   timelineView.replaceChildren();
+  const year = Number(yearRange.value);
+  const axis = document.createElement("div");
+  axis.className = "time-axis-row";
+  axis.innerHTML = `<div class="axis-heading">Earlier</div><div class="time-axis"><span>${formatYear(year - TIMELINE_RADIUS)}</span><strong>${formatYear(year)}</strong><span>${formatYear(year + TIMELINE_RADIUS)}</span></div>`;
+  timelineView.appendChild(axis);
   REGIONS.forEach(region => {
     const row = document.createElement("section");
     row.className = "region-row";
-    row.innerHTML = `<header class="region-heading"><h2>${region.name}</h2><p>${region.note}</p></header>`;
-    const cards = document.createElement("div");
-    cards.className = "cards";
+    row.style.setProperty("--region-colour", region.colour);
+    row.innerHTML = `<header class="region-heading"><span class="region-swatch" aria-hidden="true"></span><h2>${region.name}</h2><p>${region.note}</p></header>`;
+    const track = document.createElement("div");
+    track.className = "region-track";
+    track.innerHTML = `<span class="track-line" aria-hidden="true"></span><span class="now-line" aria-hidden="true"></span>`;
     const regionItems = items.filter(item => item.region === region.id).slice(0, 3);
-    if (regionItems.length) regionItems.forEach(item => cards.appendChild(cardFor(item, region)));
-    else cards.innerHTML = `<p class="empty-state">No matching item close to this date — yet.</p>`;
-    row.appendChild(cards);
+    if (regionItems.length) regionItems.forEach((item, index) => track.appendChild(timelineItemFor(item, region, year, index)));
+    else track.insertAdjacentHTML("beforeend", `<p class="empty-state">No matching item in this part of the timeline — yet.</p>`);
+    row.appendChild(track);
     timelineView.appendChild(row);
   });
 }
@@ -125,7 +149,7 @@ function render() {
   const year = Number(yearRange.value);
   yearOutput.value = formatYear(year);
   const themeText = selectedThemes.size ? ` matching ${[...selectedThemes].join(", ")}` : " across all themes";
-  resultsText.textContent = `${items.length} historical ${items.length === 1 ? "item" : "items"} within 450 years of ${formatYear(year)}${themeText}.`;
+  resultsText.textContent = `${items.length} historical ${items.length === 1 ? "item" : "items"} between ${formatYear(year - TIMELINE_RADIUS)} and ${formatYear(year + TIMELINE_RADIUS)}${themeText}.`;
   renderTimeline(items);
   if (!mapView.hidden) renderMap(items);
 }
@@ -163,4 +187,3 @@ document.querySelectorAll("dialog").forEach(dialog => dialog.addEventListener("c
 
 createThemeFilters();
 render();
-

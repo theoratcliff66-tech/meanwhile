@@ -97,13 +97,21 @@ function timelineItemFor(item, region, year, lane) {
   return button;
 }
 
+function achievementIcon(item) {
+  const key = (item.achievement + " " + item.theme).toLowerCase();
+  if (key.includes("writing")) return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19l4.2-1 9.3-9.3-3.2-3.2L6 14.8 5 19Z"/><path d="m13.8 7 3.2 3.2M5 21h14"/></svg>';
+  if (key.includes("print") || key.includes("type")) return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9V4h12v5M6 18H4V9h16v9h-2M7 14h10v6H7z"/><path d="M17 11h1"/></svg>';
+  if (key.includes("paper")) return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l3 3v15H6zM15 3v4h4M9 11h6M9 15h6"/></svg>';
+  if (key.includes("iron")) return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 5 5 5-3 3-5-5zM12 10 5 17M4 16l4 4"/></svg>';
+  if (key.includes("ocean") || key.includes("voyag")) return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M12 5 5 14h7M13 7l6 7h-6M4 18c2 2 4 2 6 0 2 2 4 2 6 0 2 2 3 2 4 1"/></svg>';
+  if (key.includes("aqua")) return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12c4-5 9-5 14 0-5 5-10 5-14 0ZM18 12l3-3v6z"/><path d="M9 11h.1"/></svg>';
+  if (key.includes("city") || key.includes("drain")) return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V9h6v11M10 20V4h6v16M16 20v-8h4v8M2 20h20M7 12h1M13 8h1M13 12h1"/></svg>';
+  return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h16M6 20V10h12v10M8 10l4-6 4 6M9 14h6M9 17h6"/></svg>';
+}
+
 function renderTimeline(items) {
   timelineView.replaceChildren();
   const year = Number(yearRange.value);
-  const axis = document.createElement("div");
-  axis.className = "time-axis-row";
-  axis.innerHTML = `<div class="axis-heading"><span>Earlier</span><small><b>◆</b> earliest writing · <b>▮</b> established milestones</small></div><div class="time-axis"><span>${formatYear(year - TIMELINE_RADIUS)}</span><strong>${formatYear(year)}</strong><span>${formatYear(year + TIMELINE_RADIUS)}</span></div>`;
-  timelineView.appendChild(axis);
   REGIONS.forEach(region => {
     const row = document.createElement("section");
     row.className = "region-row";
@@ -124,13 +132,13 @@ function renderTimeline(items) {
       const stack = document.createElement("div");
       stack.className = "achievement-stack";
       stack.setAttribute("aria-label", `${region.name} established milestones`);
-      achievements.forEach((item, index) => {
+      achievements.forEach(item => {
         const block = document.createElement("button");
         block.type = "button";
-        block.className = "achievement-block";
-        block.style.setProperty("--block-height", `${Math.min(104, 52 + item.achievement.length * 2)}px`);
-        block.style.setProperty("--stack-index", index);
-        block.innerHTML = `<span>${item.achievement}</span>`;
+        block.className = "achievement-icon";
+        block.dataset.tooltip = `${item.achievement} — ${item.title} (${formatSpan(item)})`;
+        block.setAttribute("aria-label", block.dataset.tooltip);
+        block.innerHTML = achievementIcon(item);
         block.title = `${item.achievement}: ${item.title} (${formatSpan(item)})`;
         block.addEventListener("click", () => showDetail(item));
         stack.appendChild(block);

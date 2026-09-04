@@ -14,7 +14,7 @@
 <body>
   <a class="skip-link" href="#explorer">Skip to history explorer</a>
   <header class="masthead">
-    <a class="wordmark" href="#">Meanwhile<span>.</span></a><span class="version">v1.3</span>
+    <a class="wordmark" href="#">Meanwhile<span>.</span></a><span class="version">v1.4</span>
     <p>Human history, side by side</p>
     <button class="about-button" id="aboutButton" type="button">About this project</button>
   </header>
@@ -52,14 +52,6 @@
             </div>
             <input id="yearRange" type="range" min="-3200" max="1500" step="25" value="-2500" aria-label="Move through historical years">
             <div class="range-ends" aria-hidden="true"><span id="rangeStart">3200 BCE</span><span id="rangeEnd">1500 CE</span></div>
-          </div>
-          <div class="era-choice">
-            <span class="control-label">Year labels</span>
-            <div class="era-switch" aria-label="Choose historical year labels">
-              <button class="era-button active" type="button" data-era="modern" aria-pressed="true">BCE / CE</button>
-              <button class="era-button" type="button" data-era="traditional" aria-pressed="false">BC / AD</button>
-            </div>
-            <small>Same years, different labels</small>
           </div>
         </div>
         <div id="timelineView" class="timeline-view"></div>

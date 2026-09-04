@@ -9,12 +9,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,650&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-  <link rel="stylesheet" href="styles.css?v=1.7">
+  <link rel="stylesheet" href="styles.css?v=1.8">
 </head>
 <body>
   <a class="skip-link" href="#explorer">Skip to history explorer</a>
   <header class="masthead">
-    <a class="wordmark" href="#">Meanwhile<span>.</span></a><span class="version">v1.7</span>
+    <a class="wordmark" href="#">Meanwhile<span>.</span></a><span class="version">v1.8</span>
     <p>Human history, side by side</p>
     <button class="about-button" id="aboutButton" type="button">About this project</button>
   </header>
@@ -47,7 +47,7 @@
         <div class="timeline-navigator">
           <div class="dial-control">
             <input id="yearRange" type="hidden" value="-2500">
-            <button id="timeDial" class="time-dial" type="button" role="slider" aria-label="Historical year" aria-valuemin="-3200" aria-valuemax="1500" aria-valuenow="-2500" aria-valuetext="2500 BCE">
+            <button id="timeDial" class="time-dial" type="button" role="slider" aria-label="Historical year" aria-valuemin="-3200" aria-valuemax="1800" aria-valuenow="-2500" aria-valuetext="2500 BCE">
               <span class="dial-face" aria-hidden="true"><span class="dial-mark"></span></span>
             </button>
             <span class="dial-index" aria-hidden="true"></span>
@@ -89,7 +89,7 @@
   </footer>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  <script src="data.js?v=1.7"></script>
-  <script src="app.js?v=1.7"></script>
+  <script src="data.js?v=1.8"></script>
+  <script src="app.js?v=1.8"></script>
 </body>
 </html>

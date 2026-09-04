@@ -37,15 +37,16 @@ h1 em { color: var(--accent); font-weight: 500; }
 
 .explorer { border-top: 1px solid var(--line); }
 .controls-panel { display: flex; justify-content: space-between; gap: 2rem; align-items: center; padding: 1rem clamp(1rem, 4vw, 4rem); background: var(--panel); border-bottom: 1px solid var(--line); }
-.timeline-navigator { position: sticky; top: 0; z-index: 500; padding: .75rem clamp(1rem, 4vw, 4rem); border-block: 1px solid var(--ink); background: rgba(255,255,255,.96); box-shadow: 0 8px 20px rgba(0,0,0,.07); backdrop-filter: blur(8px); }
-.dial-control { display: flex; align-items: center; gap: 1rem; }
-.time-dial { --dial-rotation: -100deg; position: relative; flex: 0 0 auto; width: 104px; height: 104px; border: 1px solid #888; border-radius: 50%; color: var(--ink); background: repeating-conic-gradient(from -2deg, #777 0 1deg, transparent 1deg 10deg), radial-gradient(circle at 50% 45%, #fff 0%, #e9e9e5 70%, #ccc 100%); box-shadow: inset 0 0 0 9px white, inset 0 0 0 10px #bbb, 0 5px 14px rgba(0,0,0,.16); cursor: grab; touch-action: none; }
+.timeline-navigator { position: sticky; top: 0; z-index: 500; height: clamp(170px, 18vw, 220px); overflow: hidden; padding: 0; border-block: 1px solid var(--ink); background: linear-gradient(180deg, #f8f8f6, #fff); box-shadow: 0 8px 20px rgba(0,0,0,.07); }
+.dial-control { position: relative; height: 100%; overflow: hidden; }
+.time-dial { --dial-rotation: -100deg; position: absolute; top: 0; left: 50%; width: clamp(480px, 60vw, 820px); aspect-ratio: 1; padding: 0; border: 0; border-radius: 50%; color: var(--ink); background: transparent; transform: translate(-50%, -67%); cursor: grab; touch-action: none; }
 .time-dial.turning { cursor: grabbing; }
-.time-dial::after { content: ""; position: absolute; inset: 20px; border: 1px solid #bbb; border-radius: 50%; background: #fdfdfb; box-shadow: inset 0 2px 7px rgba(0,0,0,.12); }
-.dial-pointer { position: absolute; z-index: 3; top: 6px; left: calc(50% - 2px); width: 4px; height: 21px; border-radius: 2px; background: var(--accent); transform: rotate(var(--dial-rotation)); transform-origin: 2px 46px; transition: transform .12s ease-out; }
-.time-dial.turning .dial-pointer { transition: none; }
-#yearOutput { position: absolute; z-index: 4; inset: 36px 13px auto; font-family: "Newsreader", serif; font-size: .92rem; font-weight: 650; line-height: 1; text-align: center; pointer-events: none; }
-.dial-copy { max-width: 360px; }
+.dial-face { position: absolute; inset: 0; border: 1px solid #9d9d98; border-radius: 50%; background: repeating-conic-gradient(#777 0 1px, transparent 1px 5deg), radial-gradient(circle, #fdfdfb 0 68%, #e7e7e2 68% 74%, #fafaf8 74% 100%); box-shadow: inset 0 0 0 12px rgba(255,255,255,.82), inset 0 0 0 13px #aaa, 0 12px 30px rgba(0,0,0,.18); transform: rotate(var(--dial-rotation)); transition: transform .16s cubic-bezier(.2,.7,.2,1); }
+.dial-mark { position: absolute; top: 5px; left: calc(50% - 2px); width: 4px; height: 8%; border-radius: 4px; background: var(--accent); }
+.time-dial.turning .dial-face { transition: none; }
+.dial-index { position: absolute; z-index: 4; bottom: 51px; left: 50%; width: 0; height: 0; border-right: 8px solid transparent; border-bottom: 14px solid var(--accent); border-left: 8px solid transparent; transform: translateX(-50%); pointer-events: none; }
+#yearOutput { position: absolute; z-index: 4; right: 0; bottom: 15px; left: 0; font-family: "Newsreader", serif; font-size: clamp(1.45rem, 2.4vw, 2rem); font-weight: 650; line-height: 1; text-align: center; pointer-events: none; }
+.dial-copy { position: absolute; z-index: 5; top: 18px; left: clamp(1rem, 4vw, 4rem); max-width: 190px; }
 .dial-copy .control-label { display: block; margin: 0 0 .25rem; }
 .dial-copy p { margin: 0 0 .5rem; color: var(--muted); font-size: .78rem; line-height: 1.35; }
 .dial-steps { display: flex; gap: .35rem; }
@@ -120,11 +121,12 @@ footer { padding: 3rem clamp(1rem, 4vw, 4rem); color: var(--muted); font-size: .
 
 @media (max-width: 620px) {
   .controls-panel { flex-direction: column; }
-  .timeline-navigator { position: sticky; padding-block: .75rem; }
-  .time-dial { width: 92px; height: 92px; }
-  .time-dial::after { inset: 18px; }
-  .dial-pointer { transform-origin: 2px 40px; }
-  #yearOutput { inset: 31px 10px auto; font-size: .84rem; }
+  .timeline-navigator { position: sticky; height: 150px; }
+  .time-dial { width: max(430px, 92vw); }
+  .dial-copy { top: 10px; left: 10px; max-width: 135px; }
+  .dial-copy p { display: none; }
+  .dial-index { bottom: 43px; }
+  #yearOutput { bottom: 12px; }
   .masthead { gap: .75rem; justify-content: space-between; }
   .wordmark { font-size: 1.65rem; }
   .about-button { font-size: .78rem; }

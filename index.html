@@ -14,7 +14,7 @@
 <body>
   <a class="skip-link" href="#explorer">Skip to history explorer</a>
   <header class="masthead">
-    <a class="wordmark" href="#">Meanwhile<span>.</span></a><span class="version">v1.2</span>
+    <a class="wordmark" href="#">Meanwhile<span>.</span></a><span class="version">v1.3</span>
     <p>Human history, side by side</p>
     <button class="about-button" id="aboutButton" type="button">About this project</button>
   </header>
@@ -27,15 +27,6 @@
 
     <section class="explorer" id="explorer" aria-label="History explorer">
       <div class="controls-panel">
-        <div class="date-control">
-          <div>
-            <span class="control-label">Choose a year</span>
-            <output id="yearOutput" for="yearRange">2500 BCE</output>
-          </div>
-          <input id="yearRange" type="range" min="-3200" max="1500" step="50" value="-2500" aria-label="Choose a year">
-          <div class="range-ends" aria-hidden="true"><span>3200 BCE</span><span>1500 CE</span></div>
-        </div>
-
         <div class="view-switch" aria-label="Choose a view">
           <button class="view-button active" type="button" data-view="timeline" aria-pressed="true">Timeline</button>
           <button class="view-button" type="button" data-view="map" aria-pressed="false">Map</button>
@@ -52,7 +43,27 @@
         <button id="resetButton" class="text-button" type="button">Reset filters</button>
       </div>
 
-      <div id="timelineView" class="timeline-view"></div>
+      <div id="timelineShell" class="timeline-shell">
+        <div class="timeline-navigator">
+          <div class="date-control">
+            <div>
+              <span class="control-label">Move through time</span>
+              <output id="yearOutput" for="yearRange">2500 BCE</output>
+            </div>
+            <input id="yearRange" type="range" min="-3200" max="1500" step="25" value="-2500" aria-label="Move through historical years">
+            <div class="range-ends" aria-hidden="true"><span id="rangeStart">3200 BCE</span><span id="rangeEnd">1500 CE</span></div>
+          </div>
+          <div class="era-choice">
+            <span class="control-label">Year labels</span>
+            <div class="era-switch" aria-label="Choose historical year labels">
+              <button class="era-button active" type="button" data-era="modern" aria-pressed="true">BCE / CE</button>
+              <button class="era-button" type="button" data-era="traditional" aria-pressed="false">BC / AD</button>
+            </div>
+            <small>Same years, different labels</small>
+          </div>
+        </div>
+        <div id="timelineView" class="timeline-view"></div>
+      </div>
       <div id="mapView" class="map-view" hidden>
         <div id="map" aria-label="Map showing historical items near the chosen date"></div>
         <p class="map-note">Locations are approximate and use present-day geography as a visual reference, not as historical borders.</p>

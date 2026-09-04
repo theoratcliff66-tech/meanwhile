@@ -10,17 +10,14 @@ const aboutDialog = document.querySelector("#aboutDialog");
 const selectedThemes = new Set();
 let map;
 let markerLayer;
-let eraStyle = "modern";
 const TIMELINE_RADIUS = 600;
 
 const THEMES = [...new Set(HISTORY_ITEMS.map(item => item.theme))].sort();
 
 function formatYear(year) {
-  const before = eraStyle === "modern" ? "BCE" : "BC";
-  const after = eraStyle === "modern" ? "CE" : "AD";
-  if (year < 0) return `${Math.abs(year).toLocaleString()} ${before}`;
-  if (year === 0) return `1 ${before} / 1 ${after}`;
-  return eraStyle === "modern" ? `${year.toLocaleString()} ${after}` : `${after} ${year.toLocaleString()}`;
+  if (year < 0) return `${Math.abs(year).toLocaleString()} BCE`;
+  if (year === 0) return `1 BCE / 1 CE`;
+  return `${year.toLocaleString()} CE`;
 }
 
 function formatSpan(item) {
@@ -75,12 +72,14 @@ function timelineItemFor(item, region, year, lane) {
   button.className = `timeline-item ${isPoint ? "point-event" : "duration-event"}`;
   button.style.setProperty("--region-colour", region.colour);
   button.style.left = `${left}%`;
-  button.style.top = `${26 + lane * 50}px`;
+  button.style.top = `${10 + lane * 34}px`;
   if (!isPoint) button.style.width = `${width}%`;
   button.setAttribute("aria-label", `${item.title}, ${formatSpan(item)}. Open details.`);
+  const thumbnail = item.image ? `<img class="timeline-thumb" src="${item.image}" alt="" loading="lazy">` : "";
+  button.classList.toggle("has-image", Boolean(item.image));
   button.innerHTML = isPoint
-    ? `<span class="event-dot"></span><span class="point-label">${item.title}<small>${formatSpan(item)}</small></span>`
-    : `<span class="bar-label">${item.title}<small>${formatSpan(item)}</small></span>`;
+    ? `${thumbnail || '<span class="event-dot"></span>'}<span class="point-label">${item.title}<small>${formatSpan(item)}</small></span>`
+    : `${thumbnail}<span class="bar-label">${item.title}<small>${formatSpan(item)}</small></span>`;
   button.addEventListener("click", () => showDetail(item));
   return button;
 }
@@ -99,7 +98,7 @@ function renderTimeline(items) {
     row.innerHTML = `<header class="region-heading"><span class="region-swatch" aria-hidden="true"></span><h2>${region.name}</h2><p>${region.note}</p></header>`;
     const track = document.createElement("div");
     track.className = "region-track";
-    track.innerHTML = `<span class="track-line" aria-hidden="true"></span><span class="now-line" aria-hidden="true"></span>`;
+    track.innerHTML = `<span class="now-line" aria-hidden="true"></span>`;
     const regionItems = items.filter(item => item.region === region.id).slice(0, 3);
     if (regionItems.length) regionItems.forEach((item, index) => track.appendChild(timelineItemFor(item, region, year, index)));
     else track.insertAdjacentHTML("beforeend", `<p class="empty-state">No matching item in this part of the timeline — yet.</p>`);
@@ -156,8 +155,8 @@ function render() {
   const items = getVisibleItems();
   const year = Number(yearRange.value);
   yearOutput.value = formatYear(year);
-  document.querySelector("#rangeStart").textContent = formatYear(-3200);
-  document.querySelector("#rangeEnd").textContent = formatYear(1500);
+  document.querySelector("#rangeStart").textContent = "3200 BCE";
+  document.querySelector("#rangeEnd").textContent = "1500 CE";
   const themeText = selectedThemes.size ? ` matching ${[...selectedThemes].join(", ")}` : " across all themes";
   resultsText.textContent = `${items.length} historical ${items.length === 1 ? "item" : "items"} between ${formatYear(year - TIMELINE_RADIUS)} and ${formatYear(year + TIMELINE_RADIUS)}${themeText}.`;
   renderTimeline(items);
@@ -176,18 +175,6 @@ document.querySelectorAll(".view-button").forEach(button => {
     timelineShell.hidden = showMap;
     mapView.hidden = !showMap;
     if (showMap) renderMap(getVisibleItems());
-  });
-});
-
-document.querySelectorAll(".era-button").forEach(button => {
-  button.addEventListener("click", () => {
-    eraStyle = button.dataset.era;
-    document.querySelectorAll(".era-button").forEach(item => {
-      const active = item === button;
-      item.classList.toggle("active", active);
-      item.setAttribute("aria-pressed", String(active));
-    });
-    render();
   });
 });
 
